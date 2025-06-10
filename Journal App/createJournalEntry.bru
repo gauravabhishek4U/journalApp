@@ -1,0 +1,19 @@
+meta {
+  name: createJournalEntry
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/journal
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id":2,
+    "title":"Afternoon",
+    "content":"It is a very sunny afternoon!!"
+  }
+}

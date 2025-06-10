@@ -1,0 +1,19 @@
+meta {
+  name: updateEntry
+  type: http
+  seq: 6
+}
+
+put {
+  url: http://localhost:8080/journal/updateEntry/2
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": 2,
+    "title": "Afternoon",
+    "content": "It is a rainy afternoon!!"
+  }
+}
