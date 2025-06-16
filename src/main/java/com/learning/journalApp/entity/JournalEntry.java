@@ -15,6 +15,13 @@ public class JournalEntry {
     private String content;
     private LocalDateTime date;
 
+    public JournalEntry(ObjectId id, String title, String content, LocalDateTime date) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.date = date;
+    }
+
     public ObjectId getId() {
         return id;
     }
