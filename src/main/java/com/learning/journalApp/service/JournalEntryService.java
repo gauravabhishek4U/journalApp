@@ -2,13 +2,15 @@ package com.learning.journalApp.service;
 
 import com.learning.journalApp.entity.JournalEntry;
 import com.learning.journalApp.repository.JournalEntryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
+@Slf4j
 @Component
 public class JournalEntryService {
 
@@ -17,7 +19,12 @@ public class JournalEntryService {
 
     // method to create a new journal entry
     public void createJournalEntry(JournalEntry journalEntry){
-        journalEntryRepository.save(journalEntry);
+        try{
+            journalEntry.setDate(LocalDateTime.now());
+            journalEntryRepository.save(journalEntry);
+        } catch (Exception e) {
+            log.error("Exception in creating new journal entry :: ", e);
+        }
     }
 
     // method to get all journal entries
@@ -36,8 +43,8 @@ public class JournalEntryService {
     }
 
     // method to update an existing journal entry by id
-    public JournalEntry updateEntryById(JournalEntry newEntry){
-        return journalEntryRepository.save(newEntry);
+    public void updateEntryById(JournalEntry newEntry){
+        journalEntryRepository.save(newEntry);
     }
 
 
