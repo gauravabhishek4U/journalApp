@@ -1,5 +1,6 @@
 package com.learning.journalApp.entity;
 
+import lombok.Data;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -7,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 
 @Document(collection = "journal_entries")
+@Data
 public class JournalEntry {
 
     @Id
@@ -15,7 +17,7 @@ public class JournalEntry {
     private String content;
     private LocalDateTime date;
 
-    public JournalEntry(ObjectId id, String title, String content, LocalDateTime date) {
+/*    public JournalEntry(ObjectId id, String title, String content, LocalDateTime date) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -52,5 +54,5 @@ public class JournalEntry {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-    }
+    }*/
 }
