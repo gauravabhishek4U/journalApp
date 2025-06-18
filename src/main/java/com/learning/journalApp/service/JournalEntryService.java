@@ -1,6 +1,7 @@
 package com.learning.journalApp.service;
 
 import com.learning.journalApp.entity.JournalEntry;
+import com.learning.journalApp.entity.User;
 import com.learning.journalApp.repository.JournalEntryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
@@ -17,11 +18,17 @@ public class JournalEntryService {
     @Autowired
     private JournalEntryRepository journalEntryRepository;
 
+    @Autowired
+    private UserService userService;
+
     // method to create a new journal entry
-    public void createJournalEntry(JournalEntry journalEntry){
+    public void createJournalEntry(JournalEntry journalEntry, String userName){
         try{
+            User user = userService.findByUserName(userName);
             journalEntry.setDate(LocalDateTime.now());
-            journalEntryRepository.save(journalEntry);
+            JournalEntry savedEntry = journalEntryRepository.save(journalEntry);
+            user.getJournalEntries().add(savedEntry);
+            userService.saveUser(user);
         } catch (Exception e) {
             log.error("Exception in creating new journal entry :: ", e);
         }
@@ -38,7 +45,10 @@ public class JournalEntryService {
     }
 
     // method to delete journal entry by id
-    public void deleteEntryById(ObjectId id){
+    public void deleteEntryById(ObjectId id, String userName){
+        User user = userService.findByUserName(userName);
+        user.getJournalEntries().removeIf(x -> x.getId().equals(id));
+        userService.saveUser(user);
         journalEntryRepository.deleteById(id);
     }
 

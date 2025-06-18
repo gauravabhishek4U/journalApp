@@ -21,9 +21,15 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+    @GetMapping("{userName}")
+    public ResponseEntity<User> getUserByUsername(@PathVariable String userName){
+        User user = userService.findByUserName(userName);
+        return new ResponseEntity<>(user,HttpStatus.FOUND);
+    }
+
     @PostMapping
     public void createUser(@RequestBody User user){
-        userService.createUser(user);
+        userService.saveUser(user);
     }
 
     @PutMapping("/{username}")

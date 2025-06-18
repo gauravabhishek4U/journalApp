@@ -20,7 +20,7 @@ public class UserService {
     private UserRepository userRepository;
 
     // method to create user
-    public void createUser(User user){
+    public void saveUser(User user){
         try{
             userRepository.save(user);
         } catch (Exception e) {
